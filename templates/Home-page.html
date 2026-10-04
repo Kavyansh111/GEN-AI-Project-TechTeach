@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Teach</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/hstyle.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">
+        <div class="logo-icon">T</div>
+        <span>Project<span class="logo-highlight">Pulse</span></span>
+      </div>
+
+      <nav>
+        <a href="#" class="active">Home</a>
+        <a href="{{ url_for('chat_page') }}">Chat Bot</a>
+        <a href="#process">How It Works</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="login-btn">Login</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <div class="badge">● Gen-AI</div>
+
+          <h1>
+            Upload Files
+            <br />
+            <span>Ask Questions</span>
+          </h1>
+
+          <p>
+            Tech Teach is a project, a result of the 3-day GEN-AI workshop held
+            by KML club
+          </p>
+
+          <div class="hero-buttons">
+            <button class="primary-btn" href="{{ url_for('chat_page') }}">
+              Start the Chat →
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-preview">
+          <div class="preview-header">
+            <span class="small-text">CHAT-BOT OVERVIEW</span>
+            <div class="status-dot">● ACTIVE</div>
+          </div>
+
+          <div class="Text">
+            <div class="You">
+              <div>
+                <h3>You</h3>
+                What is Tech Teach ?
+              </div>
+            </div>
+            <div class="Chat-bot">
+              <h3>Chat-Bot</h3>
+              Tech Teach is a project made by Kavyansh vashisht, A First year of
+              KIET after the guidance of the KML club via there 3-day workshop
+              on GEN-AI
+            </div>
+          </div>
+
+          <div class="Text-box">Enter Your Question</div>
+        </div>
+      </section>
+
+      <section class="features-section" id="process">
+        <div class="section-heading">
+          <span class="section-label"> THE PROCESS </span>
+
+          <h2>
+            Many Questions,
+            <span>As Many Answers.</span>
+          </h2>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">◈</div>
+
+            <h3>Upload a file</h3>
+
+            <p>
+              First a flie is uploaded, then it is broken into several chunks.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">◉</div>
+
+            <h3>Vector Embeddings</h3>
+
+            <p>
+              The chunks are then taken and converted into vector Embeddings and
+              for this project this is done via Hugging Face.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">↗</div>
+
+            <h3>Ask A Question</h3>
+
+            <p>
+              When the user asks a question that question is then taken and
+              broken into tokens.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">✓</div>
+
+            <h3>Reply</h3>
+
+            <p>
+              Those tokens are then taken and run through a similarity search
+              with the previously made vector embeddings and the response with
+              the highest score is given to the user
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="logo">
+        <div class="logo-icon">T</div>
+        <span>Tech<span class="logo-highlight">Teach</span></span>
+      </div>
+
+      <p>RAG based CHAT-BOT</p>
+
+      <span class="NAME"> Kavyansh Vashisht </span>
+    </footer>
+  </body>
+</html>

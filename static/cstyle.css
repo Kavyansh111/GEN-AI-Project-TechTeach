@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #1c1a19;
+  font-family: "Inter";
+  color: white;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  height: min(100%, 720px);
+  background: #2b2928;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 26px;
+  background: black;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bar .title {
+  color: #7d8fb0;
+}
+.bar .status {
+  color: #16a34a;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px 14px;
+  overflow-y: auto;
+}
+
+.bubble {
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 85%;
+  padding: 14px 14px 16px;
+  background: #808080;
+  border-radius: 14px;
+}
+.bubble.user {
+  align-self: flex-end;
+}
+.bubble .who {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.bubble .what {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ask {
+  display: flex;
+  gap: 10px;
+  margin: 14px;
+}
+.ask input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+.attach {
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--black);
+  color: var(--muted);
+  border-radius: 26px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.attach:hover {
+  color: var(--text);
+}
+#file {
+  display: none;
+}
+.ask input {
+  width: 100%;
+  padding: 26px 24px;
+  background: black;
+  border: 2px solid transparent;
+  border-radius: 26px;
+  color: white;
+  font: inherit;
+  font-size: 20px;
+}
+.ask input::placeholder {
+  color: #7a7a7a;
+}
+.ask input:focus {
+  outline: none;
+  border-color: #7d8fb0;
+}
+.ask input:disabled {
+  opacity: 0.6;
+}
+
+@media (max-width: 480px) {
+  .bar {
+    padding: 18px;
+  }
+  .bubble .who {
+    font-size: 18px;
+  }
+  .bubble .what {
+    font-size: 16px;
+  }
+  .ask input {
+    padding: 20px;
+    font-size: 17px;
+  }
+}

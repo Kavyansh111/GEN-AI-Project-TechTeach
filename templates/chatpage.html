@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat-Bot</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/cstyle.css" />
+  </head>
+
+  <body>
+    <main class="chat">
+      <header class="bar">
+        <span class="title">Chat-bot overview</span>
+        <span class="status">&#9679; Active</span>
+      </header>
+
+      <section id="messages" class="messages" aria-live="polite"></section>
+
+      <form id="form" class="ask" autocomplete="off">
+        <input
+          id="question"
+          name="msg"
+          type="text"
+          placeholder="Enter Your Question"
+          aria-label="Enter your question"
+          required
+        />
+        <label class="attach" for="file">Attach PDF</label>
+        <input id="file" type="file" accept="application/pdf" />
+      </form>
+    </main>
+
+    <script>
+      const form = document.getElementById("form");
+      const input = document.getElementById("question");
+      const messages = document.getElementById("messages");
+
+      function addBubble(who, text) {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        if (who === "You") {
+          bubble.classList.add("user");
+        }
+
+        const name = document.createElement("p");
+        name.className = "who";
+        name.textContent = who;
+
+        const body = document.createElement("p");
+        body.className = "what";
+        body.textContent = text;
+
+        bubble.append(name, body);
+        messages.appendChild(bubble);
+        messages.scrollTop = messages.scrollHeight;
+        return body;
+      }
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const question = input.value.trim();
+        if (!question) {
+          return;
+        }
+
+        addBubble("You", question);
+        input.value = "";
+        input.disabled = true;
+
+        const reply = addBubble("Chat-Bot", "Thinking...");
+
+        try {
+          const response = await fetch("/get", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ msg: question }),
+          });
+          if (response.ok) {
+            reply.textContent = await response.text();
+          } else {
+            reply.textContent = "Sorry, something went wrong on the server.";
+          }
+        } catch (error) {
+          reply.textContent =
+            "Could not reach the server. Check that app.py is running.";
+        }
+
+        input.disabled = false;
+        input.focus();
+        messages.scrollTop = messages.scrollHeight;
+      });
+
+      const fileInput = document.getElementById("file");
+
+      fileInput.addEventListener("change", async function () {
+        const file = fileInput.files[0];
+        if (!file) {
+          return;
+        }
+
+        addBubble("You", "Uploaded: " + file.name);
+        const reply = addBubble("Chat-Bot", "Reading " + file.name + "...");
+        input.disabled = true;
+
+        const data = new FormData();
+        data.append("file", file);
+
+        try {
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: data,
+          });
+          reply.textContent = await response.text();
+        } catch (error) {
+          reply.textContent =
+            "Could not reach the server. Check that app.py is running.";
+        }
+
+        fileInput.value = "";
+        input.disabled = false;
+        input.focus();
+      });
+    </script>
+  </body>
+</html>
